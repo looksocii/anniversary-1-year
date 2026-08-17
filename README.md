@@ -87,35 +87,55 @@ python3 -m http.server 8080
 
 ---
 
-## ขึ้น GitHub Pages
+## ขึ้นออนไลน์ : private repo + Cloudflare Pages
+
+วิธีที่ใช้กับโปรเจกต์นี้ — **โค้ดและรูปเป็นส่วนตัว แต่เว็บเปิดได้ด้วยลิงก์** และฟรีทั้งหมด
+
+**1) สร้าง repo แบบ private**
+
+ไปที่ https://github.com/new → ตั้งชื่อ → เลือก **Private** → ไม่ต้องติ๊ก Add README / .gitignore / license
 
 ```bash
-git init
-git add .
-git commit -m "1st anniversary site"
-git branch -M main
 git remote add origin https://github.com/<username>/<repo>.git
 git push -u origin main
 ```
 
-จากนั้นที่ repo → **Settings → Pages → Source: Deploy from a branch → main / (root) → Save**
-รอสักครู่จะได้ลิงก์ `https://<username>.github.io/<repo>/`
+**2) ต่อ Cloudflare Pages**
 
-> ไฟล์ `.nojekyll` มีไว้กัน GitHub Pages ไปประมวลผลด้วย Jekyll
-> เว็บนี้เป็น static ล้วน ไม่ต้อง build อะไรเพิ่ม
+https://dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git**
+เลือก repo ที่เพิ่งสร้าง แล้วตั้งค่าตามนี้ (เว็บนี้เป็น static ล้วน ไม่มี build step)
+
+| ช่อง | ใส่ว่า |
+|---|---|
+| Framework preset | None |
+| Build command | *(เว้นว่าง)* |
+| Build output directory | `/` |
+
+กด Save and Deploy รอประมาณ 1 นาที จะได้ลิงก์ `https://<ชื่อโปรเจกต์>.pages.dev`
+
+> **อัปเดตเว็บทีหลัง** แค่ `git push` ขึ้น `main` Cloudflare จะ deploy ให้เองอัตโนมัติ
+
+**ทางเลือกอื่นที่ทำได้เหมือนกัน**
+
+- **Netlify** — ฟรี ต่อ private repo ได้ ตั้ง publish directory เป็น `.` (แบนด์วิดท์ฟรี 100 GB/เดือน)
+- **GitHub Pages** — ใช้กับ private repo ได้เฉพาะแพลน GitHub Pro ขึ้นไป (เสียเงิน)
+  ถ้าอัปแพลนแล้วก็ไปที่ repo → Settings → Pages → Deploy from a branch → `main` / `(root)`
+  (ไฟล์ `.nojekyll` ในโปรเจกต์มีไว้สำหรับกรณีนี้ กัน Jekyll มาประมวลผลทับ)
 
 ---
 
-## ⚠️ เรื่องรหัสผ่าน — อ่านก่อนทำ public repo
+## ⚠️ ขอบเขตของความเป็นส่วนตัว — อ่านสักนิด
 
-รหัสถูกเช็คฝั่ง client ทั้งหมด **ใครก็ตามที่กด View Source หรือเปิด `data.js` จะเห็นรหัสทันที**
-มันคือ "ลูกเล่นให้บรรยากาศ" ไม่ใช่ระบบความปลอดภัยจริง
+**repo private ≠ เว็บ private** ตัวลิงก์ `.pages.dev` ใครมีลิงก์ก็เปิดได้ ไฟล์รูปและคลิปโหลดได้จากลิงก์ตรง ๆ
+ที่ป้องกันไว้แล้วคือ **ไม่ให้ Google เก็บเข้า index** (`robots.txt` + meta `noindex`) เว็บจึงหาไม่เจอจากการค้นหา
 
-ถ้าไม่อยากให้ใครเดา/เห็นได้ เลือกทางใดทางหนึ่ง:
-- ตั้ง repo เป็น **private** แล้วใช้ GitHub Pages (ต้องมีแผนแบบเสียเงิน) หรือ deploy ที่ Netlify / Vercel แทน
-- หรือยอมรับว่าเป็นแค่ของเล่น — ซึ่งกรณีนี้ก็สนุกดีอยู่แล้ว 🙂
+รหัสเปิดจดหมายถูกเช็คฝั่ง client ทั้งหมด **ใครกด View Source หรือเปิด `data.js` จะเห็นรหัสทันที**
+มันคือลูกเล่นให้บรรยากาศ ไม่ใช่ระบบความปลอดภัย
 
-อย่าใส่ข้อมูลที่ไม่อยากให้คนอื่นเห็นจริง ๆ (เบอร์โทร ที่อยู่ รูปส่วนตัวมาก ๆ) ลงใน public repo
+**ถ้าอยากให้เฉพาะคนที่กำหนดเท่านั้นเปิดได้** ใช้ Cloudflare Access (ฟรีถึง 50 คน)
+Cloudflare dashboard → **Zero Trust → Access → Applications → Add an application → Self-hosted**
+ชี้ไปที่โดเมน `.pages.dev` แล้วตั้ง policy เป็น *Emails* ระบุอีเมลที่อนุญาต
+คนที่เปิดจะต้องกรอกอีเมล → รับรหัสทางเมล → ถึงจะเข้าเว็บได้
 
 ---
 
