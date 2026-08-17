@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>1st Anniversary · จดหมายถึงเธอ</title>
+<meta name="description" content="จดหมายรักฉบับหนึ่ง ในโอกาสครบรอบ 1 ปีของเรา">
+<meta name="theme-color" content="#F9E4EB">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="1st Anniversary · จดหมายถึงเธอ">
+<meta property="og:description" content="จดหมายรักฉบับหนึ่ง ในโอกาสครบรอบ 1 ปีของเรา">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="is-locked">
+
+<!-- ========== ฉากหลัง : หัวใจลอย ========== -->
+<div class="petals" id="petals" aria-hidden="true"></div>
+
+<!-- ========== 1. ประตูจดหมาย (Gate) ========== -->
+<div class="gate" id="gate">
+  <div class="gate__glow" aria-hidden="true"></div>
+
+  <div class="gate__inner">
+    <p class="gate__eyebrow" data-gate-intro>ถึงคนที่อ่านอยู่ตอนนี้</p>
+
+    <!-- ซองจดหมาย -->
+    <div class="envelope" id="envelope" data-gate-intro>
+      <div class="envelope__shadow" aria-hidden="true"></div>
+
+      <!-- แผ่นจดหมายที่จะลอยออกมาตอนปลดล็อก -->
+      <div class="envelope__letter" aria-hidden="true">
+        <span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="envelope__body">
+        <div class="envelope__flap" id="flap"></div>
+        <div class="envelope__front"></div>
+      </div>
+
+      <!-- ตราหัวใจ -->
+      <button class="seal" id="seal" type="button" aria-label="แตะเพื่อเปิดจดหมาย">
+        <span class="seal__ring" aria-hidden="true"></span>
+        <svg class="seal__heart" viewBox="0 0 32 29" aria-hidden="true">
+          <path d="M16 28.5C16 28.5 1.5 19.8 1.5 10.4 1.5 5.6 5.3 2 9.8 2c2.7 0 5 1.4 6.2 3.5C17.2 3.4 19.5 2 22.2 2 26.7 2 30.5 5.6 30.5 10.4c0 9.4-14.5 18.1-14.5 18.1z"/>
+        </svg>
+      </button>
+    </div>
+
+    <p class="gate__hint" id="gateHint" data-gate-intro>แตะที่หัวใจเพื่อเปิดจดหมาย</p>
+
+    <!-- แผงใส่รหัส -->
+    <div class="lock" id="lock" hidden>
+      <p class="lock__title">ใส่วันที่ที่เราเริ่มต้นด้วยกัน</p>
+
+      <div class="code" id="codeBox" role="group" aria-label="รหัสวันที่ 8 หลัก">
+        <div class="code__cell" data-i="0"></div>
+        <div class="code__cell" data-i="1"></div>
+        <span class="code__sep">/</span>
+        <div class="code__cell" data-i="2"></div>
+        <div class="code__cell" data-i="3"></div>
+        <span class="code__sep">/</span>
+        <div class="code__cell" data-i="4"></div>
+        <div class="code__cell" data-i="5"></div>
+        <div class="code__cell" data-i="6"></div>
+        <div class="code__cell" data-i="7"></div>
+
+        <input class="code__input" id="codeInput" type="text" inputmode="numeric"
+               pattern="[0-9]*" maxlength="8" autocomplete="off" autocorrect="off"
+               spellcheck="false" aria-label="กรอกวันที่ ตัวเลข 8 หลัก">
+      </div>
+
+      <p class="code__format">วว / ดด / ปปปป</p>
+      <p class="lock__msg" id="lockMsg" role="status" aria-live="polite"></p>
+
+      <button class="btn" id="unlockBtn" type="button">เปิดจดหมาย</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 2. เนื้อหาเว็บ ========== -->
+<main class="site" id="site" aria-hidden="true">
+
+  <!-- Hero -->
+  <header class="hero" id="hero">
+    <div class="hero__inner">
+      <p class="hero__label" data-hero>1<sup>st</sup> Anniversary</p>
+      <h1 class="hero__title">
+        <span class="line" data-hero-line>ขอบคุณที่อยู่เคียงข้างกันมาตลอดนะ</span>
+        <span class="line line--em" data-hero-line>ครบหนึ่งปีแล้วนะ</span>
+      </h1>
+      <p class="hero__date" data-hero>19 . 08 . 2025</p>
+      <p class="hero__lead" data-hero>
+        เลื่อนลงไปช้า ๆ นะ ข้างล่างคือเรื่องราวของเราตั้งแต่วันแรก
+        จนถึงวันนี้ ที่ยังจับมือกันอยู่
+      </p>
+
+      <div class="scrollcue" data-hero aria-hidden="true">
+        <span class="scrollcue__line"></span>
+        <span class="scrollcue__text">scroll</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Timeline -->
+  <section class="timeline" id="timeline" aria-label="เส้นเวลาความทรงจำ">
+    <div class="timeline__head">
+      <p class="eyebrow">Our Story</p>
+      <h2 class="section-title">เรื่องราวของเรา</h2>
+      <p class="section-sub">จากวันนั้น ... ถึงวันนี้</p>
+    </div>
+
+    <div class="timeline__track">
+      <div class="timeline__rail" aria-hidden="true">
+        <span class="timeline__progress" id="railProgress"></span>
+        <span class="timeline__spark" id="railSpark">
+          <svg viewBox="0 0 32 29"><path d="M16 28.5C16 28.5 1.5 19.8 1.5 10.4 1.5 5.6 5.3 2 9.8 2c2.7 0 5 1.4 6.2 3.5C17.2 3.4 19.5 2 22.2 2 26.7 2 30.5 5.6 30.5 10.4c0 9.4-14.5 18.1-14.5 18.1z"/></svg>
+        </span>
+      </div>
+
+      <ol class="timeline__list" id="timelineList"><!-- สร้างจาก data.js --></ol>
+    </div>
+  </section>
+
+  <!-- Counter -->
+  <section class="counter" id="counter" aria-label="เวลาที่เราอยู่ด้วยกัน">
+    <div class="counter__card">
+      <p class="eyebrow">Together since 19.08.2025</p>
+      <h2 class="section-title">เราอยู่ด้วยกันมาแล้ว</h2>
+      <div class="counter__grid" id="counterGrid">
+        <div class="counter__unit"><b data-c="d">0</b><small>วัน</small></div>
+        <div class="counter__unit"><b data-c="h">0</b><small>ชั่วโมง</small></div>
+        <div class="counter__unit"><b data-c="m">0</b><small>นาที</small></div>
+        <div class="counter__unit"><b data-c="s">0</b><small>วินาที</small></div>
+      </div>
+      <p class="counter__note">และยังนับต่อไปเรื่อย ๆ</p>
+    </div>
+  </section>
+
+  <!-- Finale -->
+  <section class="finale" id="finale">
+    <div class="finale__card">
+      <svg class="finale__heart" viewBox="0 0 32 29" aria-hidden="true">
+        <path d="M16 28.5C16 28.5 1.5 19.8 1.5 10.4 1.5 5.6 5.3 2 9.8 2c2.7 0 5 1.4 6.2 3.5C17.2 3.4 19.5 2 22.2 2 26.7 2 30.5 5.6 30.5 10.4c0 9.4-14.5 18.1-14.5 18.1z"/>
+      </svg>
+      <p class="eyebrow">Dream</p>
+      <h2 class="finale__title">ปีหน้า ปีต่อ ๆ ไป<br>ก็ขอให้เป็นเธอคนเดิม</h2>
+      <p class="finale__text">
+        ขอบคุณสำหรับทุกวันที่ผ่านมา ทั้งวันที่ดีและวันที่เหนื่อย
+        ขอบคุณที่เลือกกันและกันทุกวัน · รักนะ
+      </p>
+      <p class="finale__sign">— จากใจ, ของเธอคนนี้</p>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Made with <span aria-label="ความรัก">💗</span> · 1st Anniversary</p>
+  </footer>
+</main>
+
+<!-- ========== Libs ========== -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script>
+<script src="assets/js/data.js" defer></script>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>

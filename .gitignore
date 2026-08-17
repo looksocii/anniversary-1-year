@@ -1,0 +1,5 @@
+.DS_Store
+Thumbs.db
+
+# ไฟล์วิดีโอต้นฉบับจากมือถือ (HEVC/.mov) — เว็บใช้ .mp4 ที่แปลงแล้วแทน
+assets/timeline/*.mov
