@@ -18,7 +18,8 @@
 │   ├── timeline/          ← รูปและคลิปจริงของไทม์ไลน์ (01…07)
 │   └── img/mock-01..08.svg← รูป placeholder สำรอง (ไม่ได้ใช้แล้ว ลบทิ้งได้)
 ├── .gitignore
-├── .nojekyll
+├── .nojekyll          ← กัน GitHub Pages ประมวลผลด้วย Jekyll
+├── robots.txt        ← กัน search engine เก็บเข้า index
 └── README.md
 ```
 
@@ -87,55 +88,54 @@ python3 -m http.server 8080
 
 ---
 
-## ขึ้นออนไลน์ : private repo + Cloudflare Pages
+## ขึ้นออนไลน์ : GitHub Pages
 
-วิธีที่ใช้กับโปรเจกต์นี้ — **โค้ดและรูปเป็นส่วนตัว แต่เว็บเปิดได้ด้วยลิงก์** และฟรีทั้งหมด
+เว็บนี้เป็น static ล้วน ไม่มี build step — GitHub Pages เสิร์ฟไฟล์ตรง ๆ ได้เลย
 
-**1) สร้าง repo แบบ private**
+**1) สร้าง repo แล้ว push**
 
-ไปที่ https://github.com/new → ตั้งชื่อ → เลือก **Private** → ไม่ต้องติ๊ก Add README / .gitignore / license
+ไปที่ https://github.com/new → ตั้งชื่อ → เลือก Public หรือ Private (อ่านข้อแตกต่างด้านล่าง)
+→ ไม่ต้องติ๊ก Add README / .gitignore / license
 
 ```bash
 git remote add origin https://github.com/<username>/<repo>.git
 git push -u origin main
 ```
 
-**2) ต่อ Cloudflare Pages**
+**2) เปิด Pages**
 
-https://dash.cloudflare.com → **Workers & Pages → Create → Pages → Connect to Git**
-เลือก repo ที่เพิ่งสร้าง แล้วตั้งค่าตามนี้ (เว็บนี้เป็น static ล้วน ไม่มี build step)
+ที่ repo → **Settings → Pages → Source: Deploy from a branch → Branch: `main` / `(root)` → Save**
 
-| ช่อง | ใส่ว่า |
-|---|---|
-| Framework preset | None |
-| Build command | *(เว้นว่าง)* |
-| Build output directory | `/` |
+รอ 1–2 นาที จะได้ลิงก์ `https://<username>.github.io/<repo>/`
 
-กด Save and Deploy รอประมาณ 1 นาที จะได้ลิงก์ `https://<ชื่อโปรเจกต์>.pages.dev`
+> **อัปเดตเว็บทีหลัง** แค่ `git push` ขึ้น `main` GitHub จะ deploy ให้เองอัตโนมัติ
+>
+> ไฟล์ `.nojekyll` ในโปรเจกต์มีไว้กัน GitHub เอาไปประมวลผลด้วย Jekyll
+> ถ้าไม่มีไฟล์นี้ โฟลเดอร์หรือไฟล์ที่ขึ้นต้นด้วย `_` จะถูกข้าม
 
-> **อัปเดตเว็บทีหลัง** แค่ `git push` ขึ้น `main` Cloudflare จะ deploy ให้เองอัตโนมัติ
+**public หรือ private?**
 
-**ทางเลือกอื่นที่ทำได้เหมือนกัน**
+| | Public repo | Private repo |
+|---|---|---|
+| ค่าใช้จ่าย | ฟรี | ต้องมี **GitHub Pro** (~$4/เดือน) |
+| โค้ด / รูป / คลิป บน GitHub | ใครก็เปิดดูและโหลดได้ | เห็นเฉพาะเจ้าของ |
+| ตัวเว็บ | ใครมีลิงก์ก็เปิดได้ | ใครมีลิงก์ก็เปิดได้ (เหมือนกัน) |
 
-- **Netlify** — ฟรี ต่อ private repo ได้ ตั้ง publish directory เป็น `.` (แบนด์วิดท์ฟรี 100 GB/เดือน)
-- **GitHub Pages** — ใช้กับ private repo ได้เฉพาะแพลน GitHub Pro ขึ้นไป (เสียเงิน)
-  ถ้าอัปแพลนแล้วก็ไปที่ repo → Settings → Pages → Deploy from a branch → `main` / `(root)`
-  (ไฟล์ `.nojekyll` ในโปรเจกต์มีไว้สำหรับกรณีนี้ กัน Jekyll มาประมวลผลทับ)
+GitHub Pages บนแพลนฟรี **ใช้ได้กับ public repo เท่านั้น** ถ้าตั้ง repo เป็น private
+โดยไม่มีแพลน Pro เมนู Pages จะขึ้นว่าต้องอัปเกรดก่อน
 
 ---
 
 ## ⚠️ ขอบเขตของความเป็นส่วนตัว — อ่านสักนิด
 
-**repo private ≠ เว็บ private** ตัวลิงก์ `.pages.dev` ใครมีลิงก์ก็เปิดได้ ไฟล์รูปและคลิปโหลดได้จากลิงก์ตรง ๆ
+**ไม่ว่า repo จะ public หรือ private ตัวเว็บก็เปิดได้ด้วยลิงก์เสมอ** ไฟล์รูปและคลิปโหลดได้จากลิงก์ตรง ๆ
 ที่ป้องกันไว้แล้วคือ **ไม่ให้ Google เก็บเข้า index** (`robots.txt` + meta `noindex`) เว็บจึงหาไม่เจอจากการค้นหา
 
 รหัสเปิดจดหมายถูกเช็คฝั่ง client ทั้งหมด **ใครกด View Source หรือเปิด `data.js` จะเห็นรหัสทันที**
 มันคือลูกเล่นให้บรรยากาศ ไม่ใช่ระบบความปลอดภัย
 
-**ถ้าอยากให้เฉพาะคนที่กำหนดเท่านั้นเปิดได้** ใช้ Cloudflare Access (ฟรีถึง 50 คน)
-Cloudflare dashboard → **Zero Trust → Access → Applications → Add an application → Self-hosted**
-ชี้ไปที่โดเมน `.pages.dev` แล้วตั้ง policy เป็น *Emails* ระบุอีเมลที่อนุญาต
-คนที่เปิดจะต้องกรอกอีเมล → รับรหัสทางเมล → ถึงจะเข้าเว็บได้
+ถ้าใช้ **public repo** ให้เข้าใจตรงกันว่ารูปและคลิปทั้งหมดใน `assets/timeline/`
+กลายเป็นไฟล์สาธารณะที่ใครก็โหลดได้ ไม่ใช่แค่คนที่มีลิงก์เว็บ
 
 ---
 
